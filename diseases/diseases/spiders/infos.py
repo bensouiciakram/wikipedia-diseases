@@ -41,6 +41,7 @@ class InfosSpider(scrapy.Spider):
                     },
                     dont_filter =True
                 )
+                
     def parse_death(self,response):
         try:
             death_count = response.xpath('//th[contains(text(),"Deaths")]/following-sibling::td/text()')[0].get()
