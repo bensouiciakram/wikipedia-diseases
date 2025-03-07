@@ -4,12 +4,14 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+from itemloaders.processors import TakeFirst
+
 
 
 class DiseasesItem(scrapy.Item):
-    date = scrapy.Field()
-    death = scrapy.Field()
-    death_toll = scrapy.Field()
-    confirmed_cases = scrapy.Field()
-    disease = scrapy.Field()
-    url = scrapy.Field()
+    date = scrapy.Field(output_processor=TakeFirst())
+    death = scrapy.Field(output_processor=TakeFirst())
+    death_toll = scrapy.Field(output_processor=TakeFirst())
+    confirmed_cases = scrapy.Field(output_processor=TakeFirst())
+    disease = scrapy.Field(output_processor=TakeFirst())
+    url = scrapy.Field(output_processor=TakeFirst())

@@ -14,16 +14,14 @@ class DiseasesPipeline:
         self.diseases = set()
 
     def process_item(self, item, spider):
-        date = int(re.findall('\d+',item['date'][0])[0])
-        
+        date = int(re.findall('\d+',item['date'])[0])
         if date < 1960:
             raise DropItem
-
-        if item['death'][0] == 'N/A':
-            item['death'][0] = item['death_toll'][0]
+        if item['death'] == 'N/A':
+            item['death'] = item['death_toll']
         else:
-            if item['disease'][0].lower() in self.diseases:
+            if item['disease'].lower() in self.diseases:
                 raise DropItem                    
-        self.diseases.add(item['disease'][0].lower())
+        self.diseases.add(item['disease'].lower())
         return item
     
