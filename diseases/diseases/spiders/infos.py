@@ -1,10 +1,9 @@
+import os 
 import scrapy
 from scrapy import Request 
-from urllib.parse import urljoin
 from scrapy.loader import ItemLoader
 from diseases.items import DiseasesItem
-import os 
-from scrapy.shell import inspect_response
+from scrapy.http.response.html import HtmlResponse
 
 
 class InfosSpider(scrapy.Spider):
@@ -15,12 +14,12 @@ class InfosSpider(scrapy.Spider):
     def __init__(self):
         try:
             os.remove('infos.json')
-        except:
+        except FileNotFoundError :
             pass
 
     start_urls = ['https://en.wikipedia.org/wiki/List_of_epidemics']    
 
-    def parse(self, response):
+    def parse(self, response:HtmlResponse):
         # selecting the rows of the chronology table
         table_rows = response.xpath('//table[contains(@class,"wikitable sortable")]/tbody/tr')
         for row in table_rows[1:]:
@@ -42,7 +41,7 @@ class InfosSpider(scrapy.Spider):
                     dont_filter =True
                 )
                 
-    def parse_death(self,response):
+    def parse_death(self,response:HtmlResponse):
         try:
             death_count = response.xpath('//th[contains(text(),"Deaths")]/following-sibling::td/text()')[0].get()
         except :
