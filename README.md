@@ -73,4 +73,17 @@ epidemics-scraper/
 │       └── infos.py     # Main spider implementation
 ```
 
+⚙ Configuration 
+
+Key settings in settings.py:
+ ```bash
+ITEM_PIPELINES = {
+    'diseases.pipelines.DiseasesPipeline': 300,
+}
+FEED_FORMAT = 'json'
+FEED_EXPORT_ENCODING = 'utf-8'
+```
+
+
+
 
